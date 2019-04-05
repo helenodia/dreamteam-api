@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Player;
 use App\Http\Resources\PlayerResource;
+use App\Http\Resources\PlayerListResource;
+
 
 class Players extends Controller
 {
     public function index()
     {
-        return Player::all();
+        return PlayerListResource::collection(Player::all());
     }
 
     public function store(Request $request)
@@ -31,7 +33,7 @@ class Players extends Controller
     {
         $data = $request->only(["name", "rating"]);
         $player = Player::create($data);
-        
+
         $player->fill($data)->save();
         return new PlayerResource($player);
     }
