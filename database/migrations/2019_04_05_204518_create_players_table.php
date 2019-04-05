@@ -12,6 +12,9 @@ class CreatePlayersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 100);
             $table->tinyInteger('rating');
+            $table->tinyInteger('team_id')->unsigned();
+            // creates relationship between players and teams:
+            $table->foreign('article_id')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
