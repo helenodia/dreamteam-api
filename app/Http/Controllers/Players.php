@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Player;
+use App\Http\Resources\PlayerResource;
 
 class Players extends Controller
 {
@@ -16,24 +17,28 @@ class Players extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        return Player::create($data);
+        $player = Player::create($data);
+        return new PlayerResource($player);
     }
 
     public function show(Player $player)
     {
-        return $player;
+        $player = Player::find($player);
+        return new PlayerResource($player);
     }
 
     public function update(Request $request, Player $player)
     {
         $data = $request->only(["name", "rating"]);
+        $player = Player::create($data);
+        
         $player->fill($data)->save();
-        return $player;
+        return new PlayerResource($player);
     }
 
     public function destroy(Player $player)
     {
         $player->delete();
-        return response(null, 204),
+        return response(null, 204);
     }
 }
