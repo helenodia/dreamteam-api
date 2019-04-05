@@ -19,22 +19,20 @@ class Players extends Controller
         return Player::create($data);
     }
 
-    public function show($id)
+    public function show(Player $player)
     {
-        return Player::find($id);
+        return $player;
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Player $player)
     {
-        $player = Player::find($id);
-        $data = $request->all();
+        $data = $request->only(["name", "rating"]);
         $player->fill($data)->save();
         return $player;
     }
 
-    public function destroy($id)
+    public function destroy(Player $player)
     {
-        $player = Player::find($id);
         $player->delete();
         return response(null, 204),
     }
