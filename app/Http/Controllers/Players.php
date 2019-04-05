@@ -14,29 +14,34 @@ class Players extends Controller
 {
     public function index(Team $team)
     {
-        return PlayerResource::collection($team->players);
+        return $team->players;
     }
 
-    public function store(PlayerRequest $request, Team $team)
+    public function store(Request $request, Team $team)
     {
         $player = new Player($request->all());
-        // store player in DB and set team_id:
-        $team->players()->save($comment)
+        $team->players()->save($player);
         return new PlayerResource($player);
     }
 
-    // public function show($id)
-    // {
-    //     //
-    // }
+    public function show(Player $player)
+    {
+        $player = Player::find($player);
+        return new PlayerResource($player);
+    }
 
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
+    public function update(PlayerRequest $request, Player $player)
+    {
+        $data = $request->only(["name", "rating"]);
+        $player = Player::create($data);
 
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+        $player->fill($data)->save();
+        return new PlayerResource($player);
+    }
+
+    public function destroy(Player $player)
+    {
+        $player->delete();
+        return response(null, 204);
+    }
 }
