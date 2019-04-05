@@ -8,4 +8,12 @@ $router->group(["prefix" => "players"], function ($router) {
     $router->delete("{player}", "Players@destroy");
 });
 
+$router->group(["prefix" => "teams"], function ($router) {
+    $router->post("","Teams@store");
+    $router->get("", "Teams@index");
+    $router->get("/{team}", "Teams@show");
+    $router->put("{team}", "Teams@update");
+    $router->delete("{team}", "Teams@destroy");
+});
+
 
