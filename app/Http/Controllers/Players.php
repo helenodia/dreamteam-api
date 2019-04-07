@@ -45,7 +45,7 @@ class Players extends Controller
 
     public function reset(Player $player)
     {
-        $players = Player::all();
+        $players = Player::where('id','like','%%');
         $players->delete();
         return response(null, 204);
     }

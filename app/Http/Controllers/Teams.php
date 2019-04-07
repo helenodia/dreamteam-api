@@ -13,85 +13,122 @@ class Teams extends Controller
 {    
     public function teams(Request $request, Player $player)
     {   
-        $players = Player::where('player', '=', $request['player'])->get()->only('name', 'rating');
+        $players = Player::all();
+        // ->only('name', 'rating')
 
-        $teams = rating_sort($players);
+        // $teamA = $this->rating_sort($players);
+        // $teamB = $this->rating_sort($players);
 
+        $begPlayers = $players->where('rating', 1)->shuffle();
+        $intPlayers = $players->where('rating', 2)->shuffle();
+        $advPlayers = $players->where('rating', 3)->shuffle();
+
+        // split each ratings group in half -as and bs
+        $halfBegPlayers = $begPlayers->count() / 2; 
+        $halfIntPlayers = $intPlayers->count() / 2;
+        $halfAdvPlayers = $advPlayers->count() / 2;
+
+        // slice
+        $begPlayersA = $begPlayers->slice(0, $halfBegPlayers);
+        $begPlayersB = $begPlayers->slice($halfBegPlayers);
+
+        $intPlayersA = $intPlayers->slice(0, $halfIntPlayers);
+        $intPlayersB = $intPlayers->slice($halfBegPlayers);
+
+        $advPlayersA = $advPlayers->slice(0, $halfAdvPlayers);
+        $advPlayersB = $advPlayers->slice($halfBegPlayers);
+
+        $teamA = $begPlayersA->merge($intPlayersA)->merge($advPlayersA);
+        $teamB = $begPlayersB->merge($intPlayersB)->merge($advPlayersB);
 
 
         return response()->Json(array(
-            'teamA' => $teamA, //send an array of players' names
+            'teamA' => $teamA, //send an array of players' names and ratings
             'teamB' => $teamB,
+            // 'players'=> $players,
         ));
+        //Respone(['teamA'=>'$teamA', 'teamB'=>'$teamB'], HTTP_OK);
     }
 
-    public function rating_sort($players)
-    {
-        // refactor using chunks
-        // might need to make them collections
-        $begPlayers = $players->where('rating', 1)->shuffle()->collect();
-        $intPlayers = $players->where('rating', 2)->shuffle()->collect();
-        $advPlayers = $players->where('rating', 3)->shuffle()->collect();
+//     public function rating_sort($players)
+//     {
+//         // refactor using chunks
+//         // might need to make them collections
+//         $begPlayers = $players->where('rating', 1)->shuffle();
+//         $intPlayers = $players->where('rating', 2)->shuffle();
+//         $advPlayers = $players->where('rating', 3)->shuffle();
 
-        // split each ratings group in half -as and bs
-        $halfBegPlayers = $begPlayers->count() / 2;
-        $halfIntPlayers = $intPlayers->count() / 2;
-        $halfAdbPlayers = $advPlayers->count() / 2;
+//         // split each ratings group in half -as and bs
+//         $halfBegPlayers = $begPlayers->count() / 2; 
+//         $halfIntPlayers = $intPlayers->count() / 2;
+//         $halfAdvPlayers = $advPlayers->count() / 2;
 
-        $begPlayersA = $begPlayers->limit($halfBegPlayers);
-        $begPlayersB = $begPlayers->skip($halfBegPlayers);
+//         // slice
+//         $begPlayersA = $begPlayers->slice(0, $halfBegPlayers);
+//         $begPlayersB = $begPlayers->slice($halfBegPlayers);
 
-        $intPlayersA = $intPlayers->limit($halfIntPlayers);
-        $intPlayersB = $intPlayers->skip($halfIntPlayers);
+//         $intPlayersA = $intPlayers->slice(0, $halfIntPlayers);
+//         $intPlayersB = $intPlayers->slice($halfBegPlayers);
 
-        $advPlayersA = $advPlayers->limit($halfAdvPlayers);
-        $advPlayersB = $advPlayers->skip($halfAdvPlayers);
+//         $advPlayersA = $advPlayers->slice(0, $halfAdvPlayers);
+//         $advPlayersB = $advPlayers->slice($halfBegPlayers);
+
+
+//         // $begPlayersA = $begPlayers->limit($halfBegPlayers);
+//         // $begPlayersB = $begPlayers->skip($halfBegPlayers);
+
+//         // $intPlayersA = $intPlayers->limit($halfIntPlayers);
+//         // $intPlayersB = $intPlayers->skip($halfIntPlayers);
+
+//         // $advPlayersA = $advPlayers->limit($halfAdvPlayers);
+//         // $advPlayersB = $advPlayers->skip($halfAdvPlayers);
         
 
-        // add as and bs together to get 2 teams
-        $teamA =
-        $teamB =
+//         // add as and bs together to get 2 teams
+//         return
+//         $teamA = $begPlayersA->merge($intPlayersA)->merge($advPlayersA);
+//         $teamB = $begPlayersB->merge($intPlayersB)->merge($advPlayersB);
 
-//         $concatenated = $collection->concat(['Jane Doe'])->concat(['name' => 'Johnny Doe']);
+// //         $concatenated = $collection->concat(['Jane Doe'])->concat(['name' => 'Johnny Doe']);
 
-// $concatenated->all();
-// implode?
-
-
-
-        // // other ways to split the ratings groups
-        // $half = ceil($collection->count() / 2);
-
-        // //or
-
-        // $collection = collect([1, 2, 3, 4, 5]);
-
-        // $chunk = $collection->slice(0,ceil($collection->count() / 2));
+// // $concatenated->all();
+// // implode?
 
 
-        // $chunks = $collection->chunk($half);
+
+//         // // other ways to split the ratings groups
+//         // $half = ceil($collection->count() / 2);
+
+//         // //or
+
+//         // $collection = collect([1, 2, 3, 4, 5]);
+
+//         // $chunk = $collection->slice(0,ceil($collection->count() / 2));
 
 
-        return
-    }
+//         // $chunks = $collection->chunk($half);
 
-    public function index()
-    {
-        return TeamListResource::collection(Team::all());
-    }
 
-    // public function store(TeamRequest $request)
+//     //     return
+//     }
+
+    // public function index()
     // {
-    //     $data = $request->all();
-    //     $team = Team::create($data);
-    //     return new TeamResource($team);
-    }
+    //     return TeamListResource::collection(Team::all());
+    // }
 
-    public function show(Team $team)
-    {
-        $team = Team::find($team);
-        return new TeamResource($team);
-    }
+    // // public function store(TeamRequest $request)
+    // // {
+    // //     $data = $request->all();
+    // //     $team = Team::create($data);
+    // //     return new TeamResource($team);
+    // }
+
+    // public function show(Team $team)
+    // {
+    //     $team = Team::find($team);
+    //     return new TeamResource($team);
+    // }
 
     // public function update(TeamRequest $request, Team $team)
     // {
