@@ -12,10 +12,10 @@ use App\Http\Requests\PlayerRequest;
 
 class Players extends Controller
 {
-    public function index(Team $team)
-    {
-        return $team->players;
-    }
+    // public function index(Team $team)
+    // {
+    //     return $team->players;
+    // }
 
     public function store(PlayerRequest $request)
     {
@@ -24,13 +24,12 @@ class Players extends Controller
         return new PlayerResource($player);
     }
 
-    // public function store(Request $request, Team $team)
-    // {
-    //     $player = new Player($request->all());
-    //     $team->players()->save($player);
-    //     return new PlayerResource($player);
-    // }
+    public function list(Player $player)
+    {
+        $players = Player::all();
 
+        return PlayerResource::collection($players);
+    }
 
     public function show(Player $player)
     {
