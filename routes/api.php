@@ -1,7 +1,7 @@
 <?php
 
 $router->group(["prefix" => "players"], function ($router) {
-    // $router->post("{team}/players","Players@store");
+    $router->post("","Players@store");
     // $router->get("{team}/players", "Players@index");
     $router->get("/{player}", "Players@show");
     $router->put("{player}", "Players@update");
@@ -16,7 +16,7 @@ $router->group(["prefix" => "teams"], function ($router) {
     $router->delete("{team}", "Teams@destroy");
 
     // routes to add a player to a team and to show players that belong to a team 
-    $router->post("{team}/players","Players@store");
+    // $router->post("{team}/players","Players@store");
     $router->get("{team}/players", "Players@index");
 });
 

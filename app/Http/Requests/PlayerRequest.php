@@ -14,9 +14,10 @@ class PlayerRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => ["required", "string", "max:100", "regex:/^[a-zA-Z]+$/"],
+            "name" => ["required", "string", "max:100"],
             "rating" => ["required", "integer"],
         ];
     }
 }
 
+            // "name" => ["required", "string", "max:100", "regex:/^[a-zA-Z]+$/"],

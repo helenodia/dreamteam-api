@@ -17,12 +17,20 @@ class Players extends Controller
         return $team->players;
     }
 
-    public function store(Request $request, Team $team)
+    public function store(PlayerRequest $request)
     {
-        $player = new Player($request->all());
-        $team->players()->save($player);
+        $data = $request->only(['name', 'rating']);
+        $player = Player::create($data);
         return new PlayerResource($player);
     }
+
+    // public function store(Request $request, Team $team)
+    // {
+    //     $player = new Player($request->all());
+    //     $team->players()->save($player);
+    //     return new PlayerResource($player);
+    // }
+
 
     public function show(Player $player)
     {
