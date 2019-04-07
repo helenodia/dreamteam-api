@@ -4,10 +4,14 @@ $router->group(["prefix" => "players"], function ($router) {
 	// tested and working:
     $router->post("","Players@store");
     $router->get("", "Players@list");
+    $router->put("{player}", "Players@update");
+    $router->delete("{player}", "Players@destroy");
+    $router->delete("", "Players@reset");
+
+
 
     // $router->get("/{player}", "Players@show");
     // $router->get("{team}/players", "Players@index");
-    $router->put("{player}", "Players@update");
     $router->delete("{player}", "Players@destroy");
 });
 

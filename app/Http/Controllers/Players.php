@@ -33,23 +33,27 @@ class Players extends Controller
     public function update(PlayerRequest $request, Player $player)
     {
         $data = $request->only(["name", "rating"]);
-        $player = Player::create($data);
-
-        $player->fill($data)->save();
-        return new PlayerResource($player);
+        $player->update($data);
+        return $player;
     } 
-
-    public function show(Player $player)
-    {
-        $player = Player::find($player);
-        return new PlayerResource($player);
-    }
-
- 
 
     public function destroy(Player $player)
     {
         $player->delete();
         return response(null, 204);
     }
+
+    public function reset(Player $player)
+    {
+        $players = Player::all();
+        $players->delete();
+        return response(null, 204);
+    }
+
+
+    // public function show(Player $player)
+    // {
+    //     $player = Player::find($player);
+    //     return new PlayerResource($player);
+    // }
 }
