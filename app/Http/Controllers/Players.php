@@ -21,6 +21,7 @@ class Players extends Controller
     {
         $data = $request->only(['name', 'rating']);
         $player = Player::create($data);
+        $player->fill($data)->save();
         return new PlayerResource($player);
     }
 
