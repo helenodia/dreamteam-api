@@ -49,8 +49,6 @@ class Players extends Controller
         $players->delete();
         return response(null, 204);
     }
-
-
     // public function show(Player $player)
     // {
     //     $player = Player::find($player);

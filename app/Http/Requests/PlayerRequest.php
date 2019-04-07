@@ -20,4 +20,4 @@ class PlayerRequest extends FormRequest
     }
 }
 
-            // "name" => ["required", "string", "max:100", "regex:/^[a-zA-Z]+$/"],
+// todo: add regex

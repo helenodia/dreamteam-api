@@ -48,6 +48,7 @@ class Teams extends Controller
         // new TeamListResource($teamA, $teamB);
     }
 
+    // not using yet:
     // public function index()
     // {
     //     return TeamListResource::collection(Team::all());
