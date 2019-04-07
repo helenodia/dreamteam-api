@@ -9,8 +9,16 @@ class TeamListResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "name" => $this->name,
+            "teamA" => [$this->teamA,
+                "id" => $this->id,
+                "name" => $this->name,
+                "rating" => $this->rating,
+            ],
+                "teamB" => [$this->teamB,
+                "id" => $this->id,
+                "name" => $this->name,
+                "rating" => $this->rating,
+            ],
         ];    
     }
 }
