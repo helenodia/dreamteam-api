@@ -5,7 +5,7 @@ This was the solo project set in our final week on the [DevelopMe_ coding fellow
 
 The live app can be viewed [here]().
 
-The front end repo can be viewed [here]().
+The front end repo can be viewed [here](https://github.com/helenodia/dreamteam-client).
 
 ## Backend Setup
 ### Prerequisites
@@ -23,6 +23,7 @@ Make sure you have the following installed:
 * Homestead - run:
 
 ```composer require laravel/homestead --dev``` to install
+
 ```php vendor/bin/homestead make``` to generate the Vagrantfile and Homestead.yaml file in your project root
 
 * A virtualizer software package such as [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
@@ -32,5 +33,6 @@ Make sure you have the following installed:
 
 Clone the git repository and run vagrant up to launch the Vagrant box:
 
-````git clone git@github.com:helenodia/dreamteam-api.git````
-````vagrant up````
+```git clone git@github.com:helenodia/dreamteam-api.git```
+
+```vagrant up```
