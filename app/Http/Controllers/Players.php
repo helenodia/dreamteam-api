@@ -27,14 +27,7 @@ class Players extends Controller
     public function list(Player $player)
     {
         $players = Player::all();
-
         return PlayerResource::collection($players);
-    }
-
-    public function show(Player $player)
-    {
-        $player = Player::find($player);
-        return new PlayerResource($player);
     }
 
     public function update(PlayerRequest $request, Player $player)
@@ -44,7 +37,15 @@ class Players extends Controller
 
         $player->fill($data)->save();
         return new PlayerResource($player);
+    } 
+
+    public function show(Player $player)
+    {
+        $player = Player::find($player);
+        return new PlayerResource($player);
     }
+
+ 
 
     public function destroy(Player $player)
     {
