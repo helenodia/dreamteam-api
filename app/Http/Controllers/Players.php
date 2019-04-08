@@ -12,11 +12,6 @@ use App\Http\Requests\PlayerRequest;
 
 class Players extends Controller
 {
-    // public function index(Team $team)
-    // {
-    //     return $team->players;
-    // }
-
     public function store(PlayerRequest $request)
     {
         $data = $request->only(['name', 'rating']);
@@ -50,9 +45,4 @@ class Players extends Controller
         $players->delete();
         return response(null, 204);
     }
-    // public function show(Player $player)
-    // {
-    //     $player = Player::find($player);
-    //     return new PlayerResource($player);
-    // }
 }
