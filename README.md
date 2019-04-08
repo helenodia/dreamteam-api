@@ -3,7 +3,11 @@ Laravel API for dreamteam (random team generator app)
 
 This was the solo project set in our final week on the [DevelopMe_ coding fellowship](https://developme.training/fellowship/).
 
-The live app can be viewed [here]().
+<!-- http://localhost:3000/ -->
+
+<!-- ec2-35-178-26-8.eu-west-2.compute.amazonaws.com/api/ -->
+
+<!-- The live app can be viewed [here](). -->
 
 The front end repo can be viewed [here](https://github.com/helenodia/dreamteam-client).
 
