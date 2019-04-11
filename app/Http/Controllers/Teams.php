@@ -11,7 +11,7 @@ use App\Http\Requests\TeamRequest;
 
 class Teams extends Controller
 {    
-    public function teams(Request $request, Player $player)
+    public function teams()
     {   
         $players = Player::all();
 
